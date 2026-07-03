@@ -18,6 +18,8 @@ Patients_id, Staff, Test results, Appointment_availability, Patients_History.
  
 - Patient Data contain all the importment info via medical history, diagnosis etc.
 
+Schema aligned to current CSV extracts (populated tables only):
+
 ```mermaid
 erDiagram
 
@@ -59,8 +61,6 @@ erDiagram
         string contract_type
         string working_pattern
         string employment_type
-        date posted_date
-        date closing_date
         string status
         int organisation_id FK
         int department_id FK
@@ -90,22 +90,6 @@ erDiagram
         string contact_type
     }
 
-    APPLICANT {
-        int applicant_id PK
-        string first_name
-        string last_name
-        string email
-    }
-
-    APPLICATION {
-        int application_id PK
-        int applicant_id FK
-        int job_id FK
-        datetime application_date
-        string status
-        decimal score
-    }
-
     ORGANISATION ||--o{ DEPARTMENT : contains
     ORGANISATION ||--o{ JOB : advertises
 
@@ -116,7 +100,9 @@ erDiagram
 
     JOB ||--o{ JOB_CONTACT : has
     RECRUITER ||--o{ JOB_CONTACT : manages
-
-    APPLICANT ||--o{ APPLICATION : submits
-    JOB ||--o{ APPLICATION : receives
 ```
+
+Tables present in files but currently empty (0 rows):
+
+- `applicant` (columns: applicant_id, first_name, last_name, email)
+- `application` (columns: application_id, applicant_id, job_id, application_date, status, score)
